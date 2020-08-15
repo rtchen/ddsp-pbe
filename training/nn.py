@@ -151,7 +151,7 @@ def fc(ch=256, name='fc'):
 
 
 def fc_stack(ch=256, layers=2, name='fc_stack'):
-  return tf.keras.Sequential([fc(ch) for _ in range(layers)], name=name)
+  return tf.keras.Sequential([fc(ch,str(_)) for _ in range(layers)], name=name)
 
 
 def rnn(dims, rnn_type, return_sequences=True):

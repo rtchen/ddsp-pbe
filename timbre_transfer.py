@@ -37,7 +37,7 @@ print('Done!')
 import librosa
 import os
 cnt = 0
-audio_file_directory =  '/Users/raychen/Downloads/nsynth-test/audio/bass_electronic'
+audio_file_directory =  '/Users/rtchen/Downloads/nsynth-test/audio/bass_electronic'
 def find_model_dir(dir_name):
   # Iterate through directories until model directory is found
   for root, dirs, filenames in os.walk(dir_name):
@@ -238,9 +238,9 @@ plt.show()
 '''
 audio_gen = model(af, training=False)
 D = librosa.stft(np.array(audio_gen[0]),n_fft = 65535,hop_length =int(65535))
-D = np.abs(D)
-print(D.shape)
-
+#D = np.abs(D)
+#print(D.shape)
+D=librosa.amplitude_to_db(D,ref=np.max)
 
 Hz_size = D.shape[0]
 max_freqs_value = np.ones(30)*-100
