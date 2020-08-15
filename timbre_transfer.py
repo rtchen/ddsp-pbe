@@ -219,6 +219,11 @@ for filename in os.listdir(audio_file_directory):
     audio_gen = model(af, training=False)
     print('Prediction took %.1f seconds' % (time.time() - start_time))
     control_dict = model.get_controls(af)
+
+    '''
+    Print harmonics graphs
+    -----------------------------------------------------------------------
+    '''
     top_harmonics = control_dict['harmonic_distribution'][0, :, 0:5]
     accu_harmonics = accu_harmonics+top_harmonics[0:1000,:]
     plt.clf()
@@ -238,10 +243,14 @@ plt.show()
 '''
 audio_gen = model(af, training=False)
 D = librosa.stft(np.array(audio_gen[0]),n_fft = 65535,hop_length =int(65535))
-#D = np.abs(D)
-#print(D.shape)
 D=librosa.amplitude_to_db(D,ref=np.max)
 
+
+
+'''
+Find top amplitude frequency and their amplitude using Fast Fourier Transform
+-----------------------------------------------------------------------------
+'''
 Hz_size = D.shape[0]
 max_freqs_value = np.ones(30)*-100
 max_freqs = np.zeros(30)
